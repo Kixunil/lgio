@@ -1,0 +1,20 @@
+[package]
+name = "lgio"
+version = "0.1.0"
+authors = ["Martin Habovstiak <martin.habovstiak@gmail.com>"]
+license = "MITNFA"
+repository = "https://github.com/Kixunil/lgio"
+description = "Lightweight, generic, no_std IO."
+categories = ["rust-patterns", "no-std", "no-std::no-alloc"]
+keywords = ["io", "genio", "no_std"]
+readme = "README.md"
+edition = "2018"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[features]
+default = ["std"]
+std = ["alloc"]
+alloc = []
