@@ -142,7 +142,7 @@ pub trait BufRead {
     ///
     /// No guarantees are provided about the contents of `buf` when this function is called, so
     /// implementations cannot rely on any property of the contents of `buf` being true. It is
-    /// recommended that implementations only write data to `buf` instead of reading its contents.
+    /// recommended that implementations only write data to `buf` and do not read its contents.
     ///
     /// Note that this method doesn't allow skipping initialization of the buffer which may lead to
     /// decreased performance. Consider reading the bytes off the buffer returned by `fill_buf`
@@ -280,7 +280,7 @@ pub trait BufRead {
 ///
 /// Writers are defined by two required methods, [`write_all`] and [`flush`]:
 ///
-/// * The [`write_all`] method will attempt to write all of the given data into the object
+/// * The [`write_all`] method will attempt to write all of the given data into the object.
 /// * The [`flush`] method is useful for adapters and explicit buffers themselves for ensuring that
 ///   all buffered data has been pushed out to the 'true sink'.
 ///
