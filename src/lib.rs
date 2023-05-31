@@ -118,9 +118,9 @@ pub trait BufRead {
     /// longer be returned. As such, this function may do odd things if [`fill_buf`] isn't called
     /// before calling it.
     ///
-    /// The `amt` must be `<=` the number of bytes in the buffer returned by [`fill_buf`]. Failing
-    /// to uphold this requirement may lead to panics or other arbitrary bugs that are **not**
-    /// Undefined Behavior.
+    /// The `amount` must be `<=` the number of bytes in the buffer returned by [`fill_buf`].
+    /// Failing to uphold this requirement may lead to panics or other arbitrary bugs that are
+    /// **not** Undefined Behavior.
     ///
     /// [`fill_buf`]: Self::fill_buf
     fn consume(&mut self, amount: usize);
