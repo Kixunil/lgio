@@ -288,9 +288,9 @@ pub trait BufRead {
 /// throughout `lgio` take and provide types which implement the `BufWrite` trait.
 ///
 /// Note that the implementations of `BufWrite` don't require that the type actually contains a
-/// buffer. It's perfectly OK to not have it if writing doesn't involve context switch or similar
-/// expensive operations. In other words, if performance of the writing to the writer is roughly
-/// same when bytes are fed individually or in large chunks then the writer may implement
+/// buffer. It's perfectly OK to not have it if writing doesn't involve a context switch or similar
+/// expensive operation. In other words, if performance of the writing to the writer is roughly
+/// the same when bytes are fed in individually or in large chunks then the writer may implement
 /// `BufRead`. If not it should provide some mechanism to add a buffer so it becomes less expensive
 /// to write byte-by-byte.
 ///
