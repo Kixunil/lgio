@@ -302,7 +302,6 @@ pub trait BufWrite {
     /// This is commonly [`std::io::Error`] but some interesting types such as `Vec<u8>` never fail.
     type WriteError;
 
-
     /// Attempts to write an entire buffer into this writer.
     ///
     /// This method will not return until the entire buffer has been successfully written or an
