@@ -88,13 +88,13 @@ pub trait BufRead {
 
     /// Returns the contents of the internal buffer, filling it with more data from the underlying
     /// source if the buffer is empty.
-
+    ///
     /// This function is a lower-level call. It needs to be paired with the [`consume`] method to
     /// function properly. When calling this method, none of the contents will be “read” in the
     /// sense that later calling `read_exact` may return the same contents. As such, [`consume`]
     /// must be called with the number of bytes that are consumed from this buffer to ensure that
     /// the bytes are never returned twice.
-
+    ///
     /// An empty buffer returned indicates that the stream has reached end (EOF).
     ///
     /// Note that implementors should handle errors that correspond to
