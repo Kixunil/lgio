@@ -88,13 +88,13 @@ pub trait BufRead {
 
     /// Returns the contents of the internal buffer, filling it with more data from the underlying
     /// source if the buffer is empty.
-
+    ///
     /// This function is a lower-level call. It needs to be paired with the [`consume`] method to
     /// function properly. When calling this method, none of the contents will be “read” in the
     /// sense that later calling `read_exact` may return the same contents. As such, [`consume`]
     /// must be called with the number of bytes that are consumed from this buffer to ensure that
     /// the bytes are never returned twice.
-
+    ///
     /// An empty buffer returned indicates that the stream has reached end (EOF).
     ///
     /// Note that implementors should handle errors that correspond to
@@ -118,9 +118,9 @@ pub trait BufRead {
     /// longer be returned. As such, this function may do odd things if [`fill_buf`] isn't called
     /// before calling it.
     ///
-    /// The `amt` must be `<=` the number of bytes in the buffer returned by [`fill_buf`]. Failing
-    /// to uphold this requirement may lead to panics or other arbitrary bugs that are **not**
-    /// Undefined Behavior.
+    /// The `amount` must be `<=` the number of bytes in the buffer returned by [`fill_buf`].
+    /// Failing to uphold this requirement may lead to panics or other arbitrary bugs that are
+    /// **not** Undefined Behavior.
     ///
     /// [`fill_buf`]: Self::fill_buf
     fn consume(&mut self, amount: usize);
@@ -142,7 +142,7 @@ pub trait BufRead {
     ///
     /// No guarantees are provided about the contents of `buf` when this function is called, so
     /// implementations cannot rely on any property of the contents of `buf` being true. It is
-    /// recommended that implementations only write data to `buf` instead of reading its contents.
+    /// recommended that implementations only write data to `buf` and do not read its contents.
     ///
     /// Note that this method doesn't allow skipping initialization of the buffer which may lead to
     /// decreased performance. Consider reading the bytes off the buffer returned by `fill_buf`
@@ -280,7 +280,7 @@ pub trait BufRead {
 ///
 /// Writers are defined by two required methods, [`write_all`] and [`flush`]:
 ///
-/// * The [`write_all`] method will attempt to write all of the given data into the object
+/// * The [`write_all`] method will attempt to write all of the given data into the object.
 /// * The [`flush`] method is useful for adapters and explicit buffers themselves for ensuring that
 ///   all buffered data has been pushed out to the 'true sink'.
 ///
@@ -288,9 +288,9 @@ pub trait BufRead {
 /// throughout `lgio` take and provide types which implement the `BufWrite` trait.
 ///
 /// Note that the implementations of `BufWrite` don't require that the type actually contains a
-/// buffer. It's perfectly OK to not have it if writing doesn't involve context switch or similar
-/// expensive operations. In other words, if performance of the writing to the writer is roughly
-/// same when bytes are fed individually or in large chunks then the writer may implement
+/// buffer. It's perfectly OK to not have it if writing doesn't involve a context switch or similar
+/// expensive operation. In other words, if performance of the writing to the writer is roughly
+/// the same when bytes are fed in individually or in large chunks then the writer may implement
 /// `BufRead`. If not it should provide some mechanism to add a buffer so it becomes less expensive
 /// to write byte-by-byte.
 ///
@@ -301,7 +301,6 @@ pub trait BufWrite {
     ///
     /// This is commonly [`std::io::Error`] but some interesting types such as `Vec<u8>` never fail.
     type WriteError;
-
 
     /// Attempts to write an entire buffer into this writer.
     ///
